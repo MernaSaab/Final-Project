@@ -1,0 +1,120 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f1ec; /* רקע בהיר ונעים */
+  color: #4b2e1a; /* טקסט חום כהה */
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+header {
+  background-color: #d2b48c; /* טאן חמים */
+  padding: 20px;
+  text-align: center;
+  color: #4b2e1a;
+}
+
+header h1 {
+  margin-bottom: 10px;
+  color: #4b2e1a;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #4b2e1a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #e07b39;
+  text-decoration: underline;
+}
+
+main {
+  padding: 40px 20px;
+}
+
+.category {
+  margin-bottom: 50px;
+}
+
+.category h2 {
+  text-align: center;
+  color: #6b4226;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.meal-card {
+  background-color: #fff9f0;
+  color: #3d2a1a;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(107, 66, 38, 0.2);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.meal-card:hover {
+  transform: scale(1.05);
+}
+
+.meal-card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  background-color: #eee4d8;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.meal-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #6b4226;
+}
+
+.meal-card p {
+  margin: 0.3rem 0;
+}
+
+.add-to-cart {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #6b4226;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #e07b39;
+}
+
+footer {
+  background-color: #d2b48c;
+  text-align: center;
+  padding: 15px;
+  color: #4b2e1a;
+  margin-top: 40px;
+}
