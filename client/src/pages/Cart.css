@@ -1,0 +1,273 @@
+/* Cart page styles */
+.cart-page {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f1ec;
+  color: #4b2e1a;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 20px;
+  text-align: center;
+  color: #4b2e1a;
+}
+
+header h1 {
+  margin-bottom: 10px;
+  color: #4b2e1a;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #4b2e1a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #e07b39;
+  text-decoration: underline;
+}
+                            
+.error-message {
+  color: #721c24;
+  background-color: #ff0015;
+  border: 1px solid #97101d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+.cart-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4b2e1a;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.empty-cart p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #888;
+}
+
+.continue-shopping {
+  display: inline-block;
+  background-color: #e07b39;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.continue-shopping:hover {
+  background-color: #d06929;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.cart-table th {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 12px;
+  text-align: right;
+  color: #4b2e1a;
+}
+
+.cart-table td {
+  padding: 15px;
+  border-bottom: 1px solid #bfa06a;
+}
+
+.meal-info {
+  display: flex;
+  align-items: center;
+}
+
+.meal-info img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.meal-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.meal-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-controls button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #bfa06a;
+  background-color: #f4f1ec;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.quantity-controls span {
+  margin: 0 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.remove-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
+}
+
+.cart-summary {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e8ed;
+  max-width: 400px;
+  margin-left: auto;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 1rem;
+}
+
+.summary-row:last-of-type {
+  border-bottom: 2px solid linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 15px 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #4b2e1a;
+}
+
+.summary-row.vat-row {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.summary-row.subtotal-row {
+  color: #333;
+  font-weight: 500;
+}
+
+.total-price {
+  font-weight: 700;
+  color: #4b2e1a;
+  font-size: 1.3rem;
+}
+
+.checkout-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.checkout-button:hover {
+  background-color: #45a049;
+}
+
+footer {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 15px;
+  text-align: center;
+  color: #4b2e1a;
+  margin-top: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cart-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .meal-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .meal-info img {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+  
+  nav {
+    gap: 15px;
+  }
+  
+  .cart-summary {
+    max-width: 100%;
+  }
+}

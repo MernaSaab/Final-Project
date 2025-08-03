@@ -1,0 +1,182 @@
+:root {
+  /* primary caramel‑brown */
+  --primary: #8b5e34;
+  --primary-dark: #603d1c;
+
+  /* glass‑card background + subtle border */
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.18);
+
+  /* text colours */
+  --text-light: #fff7f2; /* headings / labels on dark bg */
+  --input-bg: #eef3ff; /* icy blue input background */
+  --link: #b7ffd2; /* pistachio links */
+  --error: #ff6b6b; /* validation error */
+}
+
+/* ---------- Page wrapper ---------- */
+.signup-page {
+  font-family: "Segoe UI", sans-serif;
+  background: url("../images/back3.jpg") center/cover no-repeat fixed;
+  margin: 0;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  padding: 20px;
+  margin-top: 80px;
+}
+
+/* ---------- Card Container ---------- */
+.signup-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px) saturate(175%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border-radius: 18px;
+  padding: 3rem 2.5rem;
+  width: min(92%, 480px);
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signup-container h2 {
+  margin-bottom: 1.75rem;
+  font-size: 1.9rem;
+  color: var(--primary-dark);
+}
+
+/* ---------- Form ---------- */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #efe2d4;
+}
+
+.signup-form input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: var(--input-bg);
+  color: #333;
+  transition: box-shadow 0.2s ease;
+}
+
+.signup-form input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+/* error highlight */
+input.error {
+  border: 1px solid var(--error);
+  background: rgba(255, 107, 107, 0.12);
+}
+
+/* validation + form messages */
+.error-message {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.form-error {
+  background: rgba(255, 107, 107, 0.18);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.success-message {
+  background: rgba(0, 204, 102, 0.18);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ---------- Submit button ---------- */
+.signup-button {
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.signup-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.signup-button:disabled {
+  background: #726b66;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------- Extra links ---------- */
+.extra-links {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--primary-dark);
+}
+
+.extra-links a {
+  color: var(--primary);
+  text-decoration: underline;
+  margin: 0 4px;
+  transition: color 0.2s ease;
+}
+
+.extra-links a:hover {
+  color: var(--primary-dark);
+}
+
+/* ---------- Responsive tweak ---------- */
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 2.25rem 1.5rem;
+  }
+  
+  .signup-page {
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+  }
+}

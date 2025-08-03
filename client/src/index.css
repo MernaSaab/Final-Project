@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Rubik&family=Playfair+Display:wght@700&family=Poppins&family=Lora&family=Noto+Sans+Hebrew&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Assistant', 'Rubik', 'Lato', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+  background-color: #fefcf7;
+  color: #222222;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -1,0 +1,95 @@
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #fffef9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  padding: 20px;
+  z-index: 9999;
+  overflow-y: auto;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu h3 {
+  margin-top: 0;
+  text-align: right;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin-bottom: 10px;
+}
+
+.side-menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  transition: 0.9s;
+  text-align: right;
+  display: block;
+}
+
+.side-menu a:hover {
+  color: black;
+}
+
+.side-menu button {
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  text-align: right;
+  font-weight: bold;
+}
+.menu-toggle {
+  transition: right 0.3s ease;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: row-reverse; /* מימין לשמאל */
+  align-items: center;
+  gap: 10px; /* הריווח בין האייקון למילה תפריט */
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.menu-toggle.open {
+  right: 270px;
+}
+
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-icon span {
+  width: 30px;
+  height: 4px;
+  background-color: black;
+  border-radius: 2px;
+}
+
+.menu-title {
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
+  color: black;
+}
+

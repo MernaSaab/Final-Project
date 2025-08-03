@@ -1,0 +1,242 @@
+/* מבנה כללי */
+body {
+  margin: 0;
+  font-family: 'Assistant', sans-serif;
+  background-color: #fffef9;
+  color: #222;
+  direction: rtl;
+}
+
+/* Header */
+.main-header {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 20px 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #222;
+  text-shadow: 1px 1px 3px rgba(191, 160, 106, 0.2);
+  margin-bottom: 10px;
+}
+
+.logo-text span {
+  display: block;
+  font-size: 1.2rem;
+  color: #bfa06a;
+}
+
+/* ניווט */
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.nav a:hover {
+  background-color: #f9f5ee;
+  color: #bfa06a;
+}
+
+.admin-link {
+  background-color: #bfa06a;
+  color: #fff !important;
+  padding: 8px 18px;
+  border-radius: 20px;
+}
+
+.logout-link {
+  background-color: #444;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f5f1e6;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.cta-btn {
+  background-color: #bfa06a;
+  color: white;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  background-color: #a88e5a;
+  transform: translateY(-2px);
+}
+
+/* Daily Tip */
+.daily-tip {
+  margin: 30px auto;
+  max-width: 800px;
+  padding: 15px;
+  background-color: #fff7ea;
+  border-right: 5px solid #bfa06a;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* Meal Gallery */
+.meal-gallery {
+  padding: 40px 20px;
+  background-color: #faf7f1;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.meal-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  max-width: 250px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease;
+}
+
+.meal-card:hover {
+  transform: translateY(-5px);
+}
+
+.meal-card img {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+
+.meals-btn {
+  margin-top: 30px;
+  display: inline-block;
+  background-color: #bfa06a;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.meals-btn:hover {
+  background-color: #a88e5a;
+}
+
+/* Calorie Calculator */
+.calorie-calculator {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.calorie-calculator form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.calorie-calculator label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.calorie-calculator input,
+.calorie-calculator select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.calorie-calculator button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #bfa06a;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.calorie-calculator button:hover {
+  background-color: #a88e5a;
+  transform: translateY(-2px);
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #2c2c2c;
+}
+
+/* Tips Section */
+.tips-section {
+  background-color: #fffdf7;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.tips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.tip-card {
+  background-color: #f8f2e9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 300px;
+  font-size: 1rem;
+  color: #333;
+}

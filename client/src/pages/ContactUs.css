@@ -1,0 +1,141 @@
+:root {
+  --primary: #8b5e34; /* caramel brown */
+  --primary-dark: #603d1c; /* darker for hover */
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.18);
+  --text-on-dark: #fff7f2;
+}
+
+/* ---------- Global body styles (shared BG) ---------- */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("../images/back3.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* allow navbar on top */
+  min-height: 100vh;
+  color: var(--primary-dark);
+}
+
+/* ---------- Glass card container ---------- */
+.contact-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px) saturate(175%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  width: min(92%, 520px);
+  text-align: center;
+  margin: auto; /* centers within body flex */
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.contact-container p {
+  font-size: 1rem;
+  color: #603d1c;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Form ---------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form label {
+  text-align: right;
+  font-weight: 600;
+  color: #603d1c;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: #fffdfa;
+  color: #333;
+  transition: box-shadow 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-dark);
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+/* ---------- Submit button ---------- */
+.contact-form button {
+  padding: 12px;
+  background: var(--primary-dark);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ---------- Home link button ---------- */
+.back-home {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.home-btn {
+  text-decoration: none;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.home-btn:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+  .contact-container {
+    padding: 2.25rem 1.5rem;
+  }
+}

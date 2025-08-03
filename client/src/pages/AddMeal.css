@@ -1,0 +1,172 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+.add-meal-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffe9d3;
+  color: rgb(15, 12, 12);
+}
+
+header {
+  background-color: darkseagreen;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+main {
+  padding: 30px;
+  max-width: 600px;
+  margin: auto;
+  flex: 1;
+}
+
+.success-message {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.meal-form {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.meal-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.meal-form input, .meal-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.meal-form input:focus,
+.meal-form textarea:focus {
+  outline: none;
+  border-color: #1f271f;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Image upload styles */
+.image-upload-container {
+  margin-top: 10px;
+}
+
+.file-input {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+}
+
+.remove-image-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-image-btn:hover {
+  background-color: #c0392b;
+}
+
+.meal-form button {
+  background-color: rgb(120, 135, 120);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.meal-form button:hover {
+  background-color: #0c0c0a;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+  }
+  
+  .meal-form {
+    padding: 15px;
+  }
+}

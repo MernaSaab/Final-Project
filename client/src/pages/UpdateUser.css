@@ -1,0 +1,64 @@
+.update-user-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #fdfaf5;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: "Assistant", sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+.update-user-container h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  color: #4b2e1a;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.update-user-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #7c4f21;
+}
+
+.update-user-form input,
+.update-user-form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fffdf8;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+
+.update-user-form input:focus,
+.update-user-form select:focus {
+  outline: none;
+  border-color: #bfa06a;
+  box-shadow: 0 0 0 3px rgba(191, 160, 106, 0.2);
+}
+
+.update-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  background-color: #bfa06a;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.update-btn:hover {
+  background-color: #a78c5f;
+  transform: scale(1.02);
+}

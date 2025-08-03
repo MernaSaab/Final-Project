@@ -1,0 +1,160 @@
+:root {
+  --primary: #8b5e34; /* caramel‑brown */
+  --primary-dark: #603d1c; /* darker hover */
+  --card-bg: rgba(255, 255, 255, 0.06); /* glass background */
+  --card-border: rgba(255, 255, 255, 0.18);
+  --text-on-dark: #fff7f2; /* default light text */
+}
+
+/* ---------- PAGE LAYOUT ---------- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  direction: rtl;
+}
+
+.reset-pass-page {
+  background-image: url("../images/back3.jpg");
+  background-size: cover;
+  background-position: center;
+  color: var(--text-on-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* ---------- CARD ---------- */
+.reset-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px) saturate(175%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 92%;
+  text-align: center;
+  animation: fadeInCard 0.8s ease;
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reset-container h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.9rem;
+  color: var(--primary-dark);
+}
+
+.reset-container p {
+  margin-bottom: 1.5rem;
+  color: #603d1c;
+  font-size: 0.95rem;
+}
+
+/* ---------- SUCCESS MESSAGE ---------- */
+.success-message {
+  background: rgba(0, 204, 136, 0.2);
+  border: 1px solid rgba(0, 204, 136, 0.55);
+  color: #b9ffdf;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- FORM ---------- */
+.reset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reset-form label {
+  text-align: right;
+  font-weight: 600;
+  color: #e9e0d7;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reset-form input {
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: #fffdfa;
+  color: #333;
+  transition: box-shadow 0.2s ease;
+}
+
+.reset-form input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+.reset-form button {
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.reset-form button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ---------- BACK LINKS ---------- */
+.back-links {
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--primary-dark);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 480px) {
+  .reset-container {
+    padding: 2rem 1.5rem;
+  }
+}

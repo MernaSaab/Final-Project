@@ -1,0 +1,32 @@
+@import './GlobalDesktop.css';
+
+/* Additional App-specific styles */
+body {
+  font-family: 'Assistant', 'Rubik', 'Lato', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  background-color: #fffef9;
+  color: #333;
+}
+
+/* Legacy container - now using desktop-optimized classes */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+/* You can add more global styles here */

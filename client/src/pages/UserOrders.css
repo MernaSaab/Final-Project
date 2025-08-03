@@ -1,0 +1,299 @@
+/* UserOrders.css - CSS specifically for client-side orders page */
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+.user-orders-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  background-color: #fffef9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.user-orders-header {
+  background-color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-orders-header h1 {
+  color: rgb(0, 0, 0);
+  margin-bottom: 1rem;
+}
+
+.user-orders-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.user-orders-nav a {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.user-orders-nav a:hover {
+  background-color: #f0f0f0;
+}
+
+.user-orders-main {
+  flex: 1;
+  padding: 30px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fffef9;
+}
+
+.user-orders-main h2 {
+  color: #4b2e1a;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: 600;
+  padding: 0 20px;
+}
+
+.user-orders-table-container {
+  background-color: white;
+  border-radius: 0;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  padding: 0;
+  width: 1200px;
+  max-width: 95vw;
+  overflow-x: auto;
+  position: relative;
+}
+
+.user-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background: white;
+  table-layout: fixed;
+  min-width: 1180px;
+}
+
+.user-orders-table th,
+.user-orders-table td {
+  padding: 20px 15px;
+  text-align: right;
+  border-bottom: 1px solid #f1f3f4;
+  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.user-orders-table thead {
+  background: linear-gradient(135deg, #f8f6f0 0%, #f1ede3 100%) !important;
+}
+
+.user-orders-table th {
+  color: #4b2e1a !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #e1d5c7;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(135deg, #f8f6f0 0%, #f1ede3 100%) !important;
+}
+
+/* Specific column widths for user orders table */
+.user-orders-table th:nth-child(1), /* מזהה */
+.user-orders-table td:nth-child(1) {
+  width: 100px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.user-orders-table th:nth-child(2), /* פריטים */
+.user-orders-table td:nth-child(2) {
+  width: 350px;
+  min-width: 350px;
+}
+
+.user-orders-table th:nth-child(3), /* תאריך */
+.user-orders-table td:nth-child(3) {
+  width: 130px;
+  min-width: 130px;
+  text-align: center;
+}
+
+.user-orders-table th:nth-child(4), /* סטטוס */
+.user-orders-table td:nth-child(4) {
+  width: 120px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.user-orders-table th:nth-child(5), /* קבלה */
+.user-orders-table td:nth-child(5) {
+  width: 120px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.user-orders-table th:nth-child(6), /* פעולה */
+.user-orders-table td:nth-child(6) {
+  width: 100px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.user-orders-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.user-orders-confirm-dialog {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-orders-confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.user-orders-confirm-btn,
+.user-orders-cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.user-orders-confirm-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.user-orders-confirm-btn:hover {
+  background-color: #c82333;
+}
+
+.user-orders-cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.user-orders-cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.user-orders-btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.user-orders-btn-delete:hover {
+  background-color: #c82333;
+}
+
+.user-orders-btn-receipt {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.user-orders-btn-receipt:hover {
+  background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.user-orders-status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+  min-width: 80px;
+}
+
+.user-orders-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.user-orders-status.sent {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.user-orders-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.user-orders-footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+  .user-orders-table {
+    font-size: 0.9rem;
+  }
+  
+  .user-orders-table th,
+  .user-orders-table td {
+    padding: 10px 8px;
+  }
+  
+  .user-orders-main h2 {
+    font-size: 1.8rem;
+  }
+}

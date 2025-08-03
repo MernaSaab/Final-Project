@@ -1,0 +1,382 @@
+/* Global Desktop-Optimized Styles */
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  background-color: #fffef9;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Desktop Container Styles */
+.desktop-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fffef9;
+  padding: 0;
+}
+
+.desktop-main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 40px 60px;
+  min-height: 100vh;
+  background-color: #fffef9;
+}
+
+/* Admin Dashboard Desktop Layout */
+.admin-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fffef9;
+  padding: 0;
+}
+
+.admin-header {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  color: #222;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.admin-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.admin-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.admin-badge {
+  background-color: #bfa06a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Stats Cards - Desktop Grid */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 1px solid #e1e8ed;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #bfa06a;
+  margin: 20px 0;
+}
+
+.stat-action {
+  display: inline-block;
+  background-color: #bfa06a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.stat-action:hover {
+  background-color: #a88e5a;
+  transform: translateY(-2px);
+}
+
+/* Admin Sections - Desktop Layout */
+.admin-sections {
+  padding: 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+}
+
+.admin-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 1px solid #e1e8ed;
+}
+
+.admin-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #222;
+  border-bottom: 3px solid #bfa06a;
+  padding-bottom: 10px;
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: #f9f5ee;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #e1e8ed;
+}
+
+.admin-link:hover {
+  background-color: #bfa06a;
+  color: white;
+  transform: translateX(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.admin-link .icon {
+  font-size: 1.5rem;
+}
+
+/* Tables - Desktop Optimized */
+.desktop-table-container {
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 1px solid #e1e8ed;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.desktop-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.desktop-table th {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  color: #222;
+  padding: 20px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #bfa06a;
+}
+
+.desktop-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f1f3f4;
+  vertical-align: middle;
+}
+
+.desktop-table tbody tr:hover {
+  background-color: #fff8f0;
+  transition: all 0.2s ease;
+}
+
+/* Forms - Desktop Layout */
+.desktop-form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 1px solid #e1e8ed;
+  padding: 40px;
+}
+
+.desktop-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.desktop-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+  font-size: 1.1rem;
+}
+
+.desktop-form-group input,
+.desktop-form-group textarea,
+.desktop-form-group select {
+  padding: 12px 15px;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.desktop-form-group input:focus,
+.desktop-form-group textarea:focus,
+.desktop-form-group select:focus {
+  outline: none;
+  border-color: #bfa06a;
+  box-shadow: 0 0 0 3px rgba(191, 160, 106, 0.2);
+}
+
+/* Buttons - Desktop Style */
+.desktop-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.desktop-btn-primary {
+  background-color: #bfa06a;
+  color: white;
+}
+
+.desktop-btn-primary:hover {
+  background-color: #a88e5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.desktop-btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.desktop-btn-danger:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Navigation - Desktop */
+.desktop-nav {
+  background: linear-gradient(to right, #fffdf7, #f5f1e6);
+  padding: 15px 60px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.desktop-nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.desktop-nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.desktop-nav-link {
+  color: #222;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.desktop-nav-link:hover {
+  background-color: #f9f5ee;
+  color: #bfa06a;
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .desktop-main,
+  .admin-header,
+  .stats,
+  .admin-sections {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-main,
+  .admin-header,
+  .stats,
+  .admin-sections {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-sections {
+    grid-template-columns: 1fr;
+  }
+}
