@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 
+//State של פרטי המשתמש
 const UserProfile = () => {
   const userId = localStorage.getItem('user_id');
   const navigate = useNavigate();
@@ -15,17 +16,20 @@ const UserProfile = () => {
   });
 const [message, setMessage] = useState('');
 
+//שליפת פרטי המשתמש מהשרת
   useEffect(() => {
     axios.get(`http://localhost:3001/users/${userId}`)
       .then(res => setUser(res.data))
       .catch(console.error);
   }, [userId]);
-
+  
+//עדכון פרטי המשתמש
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser(prev => ({ ...prev, [name]: value }));
   };
 
+// שמירת פרטי המשתמש בשרת
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

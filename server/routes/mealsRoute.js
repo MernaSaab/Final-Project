@@ -77,16 +77,25 @@ router.post("/", verifyToken, isAdmin, upload.single('image'), handleUploadError
     console.log('POST /meals - File:', req.file);
     
     // Get form data
-    const { meal_id, meal_name, description, price, quantity, calories } = req.body;
+    const { meal_name, description, price, quantity, calories } = req.body;
     
     // Log received data
-    console.log('Received meal data:', { meal_id, meal_name, description, price, quantity, calories });
+    console.log('Received meal data:', { meal_name, description, price, quantity, calories });
     
     // Validate required fields
     if (!meal_name || !price) {
       console.error('Missing required fields:', { meal_name, price });
       return res.status(400).json({ 
         error: 'Missing required fields: meal_name and price are required', 
+        success: false 
+      });
+    }
+    
+    // Validate quantity is at least 1
+    if (quantity !== undefined && (isNaN(parseInt(quantity)) || parseInt(quantity) < 1)) {
+      console.error('Invalid quantity value:', quantity);
+      return res.status(400).json({ 
+        error: 'Quantity must be at least 1', 
         success: false 
       });
     }
@@ -112,10 +121,10 @@ router.post("/", verifyToken, isAdmin, upload.single('image'), handleUploadError
       console.log('File verified at path:', filePath);
     }
     
-    const query = "INSERT INTO meals (meal_id, meal_name, description, image_url, price, quantity, calories) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    console.log('Executing query with values:', [meal_id, meal_name, description, image_url, price, quantity, calories || 0]);
+    const query = "INSERT INTO meals (meal_name, description, image_url, price, quantity, calories) VALUES (?, ?, ?, ?, ?, ?)";
+    console.log('Executing query with values:', [meal_name, description, image_url, price, quantity, calories || 0]);
     
-    db.query(query, [meal_id, meal_name, description, image_url, price, quantity, calories || 0], (err, results) => {
+    db.query(query, [meal_name, description, image_url, price, quantity, calories || 0], (err, results) => {
       if (err) {
         console.error('Database error when inserting meal:', err);
         

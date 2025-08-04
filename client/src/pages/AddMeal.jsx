@@ -15,7 +15,6 @@ const AddMeal = () => {
     }
   }, [isAdmin, isAuthenticated, navigate]);
   const [formData, setFormData] = useState({
-    meal_id: "",
     meal_name: "",
     description: "",
     price: "",
@@ -138,7 +137,6 @@ const AddMeal = () => {
 
       // Clear form after submission
       setFormData({
-        meal_id: "",
         meal_name: "",
         description: "",
         price: "",
@@ -170,16 +168,7 @@ const AddMeal = () => {
         {message && <div className="success-message">{message}</div>}
 
         <form className="meal-form" onSubmit={handleSubmit}>
-          <label>
-            מזהה מנה:
-            <input
-              type="text"
-              name="meal_id"
-              value={formData.meal_id}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          {/* שדה מזהה מנה הוסר - יוגדר אוטומטית בשרת */}
 
           <label>
             שם המנה:
@@ -257,7 +246,7 @@ const AddMeal = () => {
             <input
               type="number"
               name="quantity"
-              min="0"
+              min="1"
               value={formData.quantity}
               onChange={handleChange}
               required
