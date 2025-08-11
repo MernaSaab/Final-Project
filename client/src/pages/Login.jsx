@@ -51,13 +51,16 @@ const Login = () => {
       const user = await login(email, password);
       console.log("Login successful:", user);
       localStorage.setItem('user_id', user.user_id);
-      navigate("/");
-
-
-      // Redirect all users to the homepage, regardless of user type
-      console.log("Login successful, redirecting to homepage");
-      navigate("/");
-
+      
+      // Check if user is admin and redirect accordingly
+      if (user.user_type === "admin") {
+        console.log("Admin user detected, redirecting to admin dashboard");
+        navigate("/admin");
+      } else {
+        console.log("Regular user detected, redirecting to homepage");
+        navigate("/");
+      }
+      
       // Note: Admin users can still access the admin page via the admin tab in the navbar
     } catch (err) {
       console.error("Login error:", err);
@@ -108,8 +111,7 @@ const Login = () => {
 
         <div className="extra-links">
           <Link to="/reset-password">שכחת סיסמה?</Link> | 
-          <Link to="/signup">להרשמה</Link> | 
-          <Link to="/">חזרה לדף הבית</Link>
+          <Link to="/signup">להרשמה</Link>
         </div>
       </form>
     </div>

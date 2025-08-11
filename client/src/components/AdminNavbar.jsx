@@ -20,7 +20,7 @@ const AdminNavbar = () => {
         <h1>מערכת ניהול </h1>
       </div>
       <nav className="admin-navbar">
-        <Link to="/" className="admin-nav-link">
+        <Link to="/admin" className="admin-nav-link">
           דף הבית
         </Link>
         {/* Commented out orders link

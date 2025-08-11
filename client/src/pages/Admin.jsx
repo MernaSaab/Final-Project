@@ -24,150 +24,163 @@ const Admin = () => {
     }
   }, [isAdmin, navigate]);
 
-  // Fetch dashboard statistics
-  useEffect(() => {
-    const fetchStats = async () => {
-      if (!isAdmin()) {
-        return; // Don't fetch stats if not admin
+  // Function to fetch dashboard statistics
+  const fetchStats = async () => {
+    if (!isAdmin()) {
+      return; // Don't fetch stats if not admin
+    }
+
+    try {
+      const token = sessionStorage.getItem("auth_token");
+      if (!token) {
+        console.error("No authentication token found");
+        logout();
+        navigate("/login");
+        return;
       }
 
-      try {
-        const token = sessionStorage.getItem("auth_token");
-        if (!token) {
-          console.error("No authentication token found");
-          logout();
-          navigate("/login");
-          return;
-        }
+      setLoading(true);
+      setError(null);
 
-        setLoading(true);
-        setError(null);
+      // Prepare headers with authorization token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
-        // Prepare headers with authorization token
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        };
+      // Initialize default values
+      let usersCount = 0;
+      let mealsCount = 0;
+      let ordersCount = 0;
 
-        // Initialize default values in case any request fails
-        let usersCount = 0;
-        let mealsCount = 0;
-        let ordersCount = 0;
-
-        // Fetch users count
-        try {
-          console.log("Fetching users count...");
-          const usersResponse = await fetch(
-            "http://localhost:3001/users/count",
-            { 
-              method: 'GET',
-              headers,
-              credentials: 'include'
-            }
-          );
+      // DIRECT FETCH FOR USER COUNT - Using XMLHttpRequest for better debugging
+      const getUserCount = () => {
+        return new Promise((resolve) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', 'http://localhost:3001/users/count', true);
+          xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.withCredentials = true;
           
-          console.log("Users response status:", usersResponse.status);
-          
-          if (usersResponse.ok) {
-            const usersData = await usersResponse.json();
-            usersCount = usersData.count || 0;
-            console.log("Users count:", usersCount);
-          } else {
-            const errorText = await usersResponse.text();
-            console.error("Error fetching users count:", usersResponse.status, errorText);
+          xhr.onload = function() {
+            console.log('User count XHR status:', xhr.status);
+            console.log('User count XHR response:', xhr.responseText);
             
-            // Handle unauthorized access
-            if (usersResponse.status === 401 || usersResponse.status === 403) {
-              console.log("Authentication failed, redirecting to login");
-              logout();
-              navigate("/login");
-              return;
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try {
+                const data = JSON.parse(xhr.responseText);
+                console.log('Parsed user count data:', data);
+                if (data && typeof data.count === 'number') {
+                  resolve(data.count);
+                } else {
+                  console.error('Invalid user count format:', data);
+                  resolve(0);
+                }
+              } catch (e) {
+                console.error('Error parsing user count response:', e);
+                resolve(0);
+              }
+            } else {
+              console.error('Error fetching user count:', xhr.status, xhr.responseText);
+              resolve(0);
             }
-          }
-        } catch (userError) {
-          console.error("Exception fetching users count:", userError);
-        }
-
-        // Fetch meals count
-        try {
-          console.log("Fetching meals count...");
-          const mealsResponse = await fetch(
-            "http://localhost:3001/meals/count",
-            { 
-              method: 'GET',
-              headers,
-              credentials: 'include'
-            }
-          );
+          };
           
-          console.log("Meals response status:", mealsResponse.status);
+          xhr.onerror = function() {
+            console.error('XHR error for user count');
+            resolve(0);
+          };
           
-          if (mealsResponse.ok) {
-            const mealsData = await mealsResponse.json();
-            mealsCount = mealsData.count || 0;
-            console.log("Meals count:", mealsCount);
-          } else {
-            const errorText = await mealsResponse.text();
-            console.error("Error fetching meals count:", mealsResponse.status, errorText);
-          }
-        } catch (mealError) {
-          console.error("Exception fetching meals count:", mealError);
-        }
-
-        // Fetch orders count
-        try {
-          console.log("Fetching orders count...");
-          const ordersResponse = await fetch(
-            "http://localhost:3001/orders/count",
-            { 
-              method: 'GET',
-              headers,
-              credentials: 'include'
-            }
-          );
-          
-          console.log("Orders response status:", ordersResponse.status);
-          
-          if (ordersResponse.ok) {
-            const ordersData = await ordersResponse.json();
-            ordersCount = ordersData.count || 0;
-            console.log("Orders count:", ordersCount);
-          } else {
-            const errorText = await ordersResponse.text();
-            console.error("Error fetching orders count:", ordersResponse.status, errorText);
-          }
-        } catch (orderError) {
-          console.error("Exception fetching orders count:", orderError);
-        }
-
-        // Update state with fetched data (using defaults if any request failed)
-        setStats({
-          users: usersCount,
-          meals: mealsCount,
-          orders: ordersCount,
+          xhr.send();
         });
+      };
 
-        // Set last login time
-        setLastLogin(new Date().toLocaleString("he-IL"));
-        
-        console.log("Final stats:", { users: usersCount, meals: mealsCount, orders: ordersCount });
-        
-      } catch (err) {
-        console.error("Error fetching admin statistics:", err);
-        setError(err.message || "שגיאה בטעינת נתונים מהשרת");
+      // Fetch meals count using fetch API
+      const getMealsCount = async () => {
+        try {
+          const response = await fetch('http://localhost:3001/meals/count', {
+            method: 'GET',
+            headers,
+            credentials: 'include'
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            return data.count || 0;
+          }
+        } catch (error) {
+          console.error('Error fetching meals count:', error);
+        }
+        return 0;
+      };
 
-        // Reset stats to zeros
-        setStats({
-          users: 0,
-          meals: 0,
-          orders: 0,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+      // Fetch orders count using fetch API
+      const getOrdersCount = async () => {
+        try {
+          const response = await fetch('http://localhost:3001/orders/count', {
+            method: 'GET',
+            headers,
+            credentials: 'include'
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            return data.count || 0;
+          }
+        } catch (error) {
+          console.error('Error fetching orders count:', error);
+        }
+        return 0;
+      };
 
+      // Fetch all counts in parallel
+      const [users, meals, orders] = await Promise.all([
+        getUserCount(),
+        getMealsCount(),
+        getOrdersCount()
+      ]);
+
+      console.log('Final counts from Promise.all:', { users, meals, orders });
+
+      // Update state with fetched data
+      const newStats = {
+        users,
+        meals,
+        orders
+      };
+      
+      console.log('Setting new stats:', newStats);
+      setStats(newStats);
+
+      // Set last login time
+      setLastLogin(new Date().toLocaleString("he-IL"));
+      
+    } catch (err) {
+      console.error("Error fetching admin statistics:", err);
+      setError(err.message || "שגיאה בטעינת נתונים מהשרת");
+
+      // Reset stats to zeros
+      setStats({
+        users: 0,
+        meals: 0,
+        orders: 0,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch stats when component mounts and set up interval for real-time updates
+  useEffect(() => {
     fetchStats();
+    
+    // Set up interval to refresh stats every 30 seconds
+    const intervalId = setInterval(() => {
+      fetchStats();
+    }, 30000); // 30 seconds
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
   }, [isAdmin, logout, navigate]);
 
   return (
@@ -175,8 +188,8 @@ const Admin = () => {
       <AdminNavbar />
       <div className="admin-header">
         <div>
-          <h1>שלום {user?.name || "מנהל"} 👋</h1>
-          <p>כאן תוכל לנהל את האתר בקלות</p>
+          <h1>שלום {user.first_name} 👋</h1>
+          <p>כאן תוכל/י לנהל את האתר בקלות</p>
           {lastLogin && <p className="last-login">כניסה אחרונה: {lastLogin}</p>}
         </div>
         <div className="admin-badge">מנהל מערכת</div>
@@ -227,15 +240,7 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="admin-section">
-          <h2>👥 ניהול משתמשים</h2>
-          <div className="admin-actions">
-            <Link to="/admin/users" className="admin-link desktop-btn">
-              <span className="icon">👤</span>
-              ניהול משתמשים
-            </Link>
-          </div>
-        </div>
+       
 
         <div className="admin-section">
           <h2>📬 ניהול הודעות צור קשר</h2>
