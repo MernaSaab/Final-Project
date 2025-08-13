@@ -161,7 +161,13 @@ const AddMeal = () => {
     <div className="add-meal-container">
       <AdminNavbar />
       <div className="admin-header">
-        <h1>🍽️ הוספת מנה חדשה</h1>
+        <div className="header-with-back">
+          <Link to="/admin/meals" className="back-button">
+            <span className="back-icon">←</span>
+            חזרה לניהול מנות
+          </Link>
+          <h1>🍽️ הוספת מנה חדשה</h1>
+        </div>
       </div>
 
       <main>

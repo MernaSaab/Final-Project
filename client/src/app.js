@@ -9,7 +9,7 @@ import HomePage from "./components/pages/HomePage.jsx";
 import Login from "./components/pages/Login.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
 import Meals from "./components/pages/Meals.jsx";
-import ContactUs from "./components/pages/ContactUs.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 import Admin from "./components/pages/Admin.jsx";
 import AdminUsers from "./components/pages/AdminUsers.jsx";
 import AddMeal from "./components/pages/AddMeal.jsx";
@@ -18,7 +18,7 @@ import Orders from "./pages/Orders.jsx";
 import ResetPass from "./components/pages/ResetPass.jsx";
 import UpdateOrder from "./components/pages/UpdateOrder.jsx";
 import UpdateUser from "./components/pages/UpdateUser.jsx";
-import AdminMessages from "./pages/AdminMessages";
+import AdminMessages from "./pages/AdminMessages.jsx";
 import UserProfile from './pages/UserProfile';
 import SideMenu from './components/SideMenu';
 import ReceiptPage from './pages/ReceiptPage.jsx';
@@ -42,6 +42,8 @@ function AppContent() {
         <Route path="/meals" element={<Meals />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/admin/messages" element={<AdminMessages />} />
+        {/* ניתוב חלופי למקרה שיש בעיה עם הניתוב הראשי */}
+        <Route path="admin/messages" element={<AdminMessages />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/add-meal" element={<AddMeal />} />

@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./ContactUs.css";
 
-
-
-
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-   full_name: "",
+    full_name: "",
     email: "",
+    number: "",
     subject: "",
     message: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,40 +25,50 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    setSubmitStatus(null);
+  
     try {
       const response = await fetch("http://localhost:3001/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       });
-
-      if (response.ok) {
-        alert("ההודעה נשלחה בהצלחה!");
-        setFormData({ full_name: "", email: "", subject: "", message: "" });
-      } else {
-        alert("אירעה שגיאה בשליחה, נסה שוב מאוחר יותר.");
+  
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || "Server error");
       }
-    } catch (error) {
-      console.error("שגיאה בשליחה:", error);
-      alert("שגיאה בחיבור לשרת.");
+  
+      // הצלחה
+      setFormData({ full_name: "", email: "", number: "", subject: "", message: "" });
+      setSubmitStatus({ success: true, message: "ההודעה נשלחה בהצלחה" });
+    } catch (err) {
+      console.error("Contact submit error:", err);
+      setSubmitStatus({ success: false, message: "אירעה שגיאה בשליחה, נסי שוב מאוחר יותר" });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
   
-
   return (
     <div className="contact-container">
       <h2>צור קשר</h2>
       <p>נשמח לשמוע ממך! מלא את הפרטים ונחזור אליך בהקדם</p>
+      
+      {submitStatus && (
+        <div className={`status-message ${submitStatus.success ? 'success' : 'error'}`}>
+          {submitStatus.message}
+        </div>
+      )}
+      
       <form className="contact-form" onSubmit={handleSubmit}>
         <label>
           שם מלא
           <input
             type="text"
             name="full_name"
-            value={formData.name}
+            value={formData.full_name}
             onChange={handleChange}
             autoComplete="off"
             required
@@ -75,6 +84,17 @@ const ContactUs = () => {
             onChange={handleChange}
             autoComplete="off"
             required
+          />
+        </label>
+
+        <label>
+          מספר טלפון
+          <input
+            type="tel"
+            name="number"
+            value={formData.number}
+            onChange={handleChange}
+            autoComplete="off"
           />
         </label>
 

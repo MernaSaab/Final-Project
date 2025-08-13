@@ -33,6 +33,77 @@ router.get("/", (req, res) => {
 });
 
 /**
+ * @route   POST /meals/refresh-quantities
+ * @desc    Force update meal quantities directly
+ * @access  Public
+ */
+router.post("/refresh-quantities", (req, res) => {
+  console.log("REFRESH QUANTITIES ENDPOINT CALLED");
+  console.log("Request body:", req.body);
+  
+  const { items } = req.body;
+  
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ message: "Missing or invalid items array" });
+  }
+  
+  // Process each item and update quantity directly
+  const updatePromises = items.map(item => {
+    return new Promise((resolve, reject) => {
+      const mealId = item.meal_id || item.id;
+      const quantity = item.quantity || item.qty;
+      
+      if (!mealId || !quantity) {
+        console.log("Skipping item with missing meal_id or quantity:", item);
+        return resolve();
+      }
+      
+      console.log(`Directly updating meal ${mealId} quantity by -${quantity}`);
+      
+      // First get current quantity
+      db.query("SELECT quantity FROM meals WHERE meal_id = ?", [mealId], (err, results) => {
+        if (err) {
+          console.error(`Error getting current quantity for meal ${mealId}:`, err);
+          return reject(err);
+        }
+        
+        if (results.length === 0) {
+          console.error(`Meal with ID ${mealId} not found`);
+          return resolve(); // Skip but don't fail
+        }
+        
+        const currentQuantity = results[0].quantity || 0;
+        const newQuantity = Math.max(0, currentQuantity - quantity);
+        
+        console.log(`Meal ${mealId}: ${currentQuantity} - ${quantity} = ${newQuantity}`);
+        
+        // Update with new quantity
+        db.query("UPDATE meals SET quantity = ? WHERE meal_id = ?", [newQuantity, mealId], (updateErr, updateResult) => {
+          if (updateErr) {
+            console.error(`Error updating meal ${mealId}:`, updateErr);
+            return reject(updateErr);
+          }
+          
+          console.log(`Updated meal ${mealId} quantity to ${newQuantity}, affected rows: ${updateResult.affectedRows}`);
+          resolve(updateResult);
+        });
+      });
+    });
+  });
+  
+  // Wait for all updates to complete
+  Promise.all(updatePromises)
+    .then(() => {
+      console.log("All meal quantities refreshed successfully");
+      res.json({ message: "Meal quantities refreshed successfully" });
+    })
+    .catch(error => {
+      console.error("Error refreshing meal quantities:", error);
+      res.status(500).json({ message: "Error refreshing meal quantities", error: error.message });
+    });
+});
+
+/**
  * @route   GET /meals/count
  * @desc    Get the total count of meals
  * @access  Public

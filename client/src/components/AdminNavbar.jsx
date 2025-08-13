@@ -23,14 +23,12 @@ const AdminNavbar = () => {
         <Link to="/admin" className="admin-nav-link">
           דף הבית
         </Link>
-        {/* Commented out orders link
         <Link 
           to="/admin/orders" 
           className={`admin-nav-link ${isActive('/admin/orders') ? 'active' : ''}`}
         >
           הזמנות
         </Link>
-        */}
         <Link
           to="/admin/users"
           className={`admin-nav-link ${
@@ -46,6 +44,15 @@ const AdminNavbar = () => {
           }`}
         >
           מנות
+        </Link>
+        
+        <Link
+          to="/admin/messages"
+          className={`admin-nav-link ${
+            isActive("/admin/messages") ? "active" : ""
+          }`}
+        >
+          הודעות
         </Link>
 
         <Link to="/login" className="admin-nav-link" onClick={logout}>

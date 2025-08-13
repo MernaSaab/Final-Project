@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import AdminNavbar from "../components/AdminNavbar";
 import "./AdminMealsList.css";
@@ -195,9 +195,10 @@ const AdminMealsList = () => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [editingMeal, setEditingMeal] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   const { isAdmin, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -209,7 +210,15 @@ const AdminMealsList = () => {
     }
 
     fetchMeals();
-  }, [isAdmin, logout, navigate]);
+    
+    // Set up an interval to refresh the meals data every 30 seconds
+    const intervalId = setInterval(() => {
+      fetchMeals();
+    }, 30000);
+    
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [isAdmin, logout, navigate, refreshTrigger]);
 
   const fetchMeals = async () => {
     setLoading(true);
@@ -380,8 +389,22 @@ const AdminMealsList = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
           />
+          <button 
+            className="refresh-button" 
+            onClick={() => {
+              setRefreshTrigger(prev => prev + 1);
+              fetchMeals();
+            }}
+            title="רענן נתונים"
+          >
+            🔄 רענן
+          </button>
         </div>
 
+        <Link to="/admin/add-meal" className="admin-link desktop-btn">
+          <span className="icon">➕</span>
+          הוספת מנה חדשה
+        </Link>
         <div className="meals-table-container">
           <table className="meals-table">
             <thead>
@@ -461,6 +484,13 @@ const AdminMealsList = () => {
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="back-to-admin-container">
+          <Link to="/admin" className="back-to-admin-button">
+            <span className="back-icon">←</span>
+            חזרה לדף ניהול
+          </Link>
         </div>
       </main>
 

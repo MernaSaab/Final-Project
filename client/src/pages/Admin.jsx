@@ -53,46 +53,29 @@ const Admin = () => {
       let mealsCount = 0;
       let ordersCount = 0;
 
-      // DIRECT FETCH FOR USER COUNT - Using XMLHttpRequest for better debugging
-      const getUserCount = () => {
-        return new Promise((resolve) => {
-          const xhr = new XMLHttpRequest();
-          xhr.open('GET', 'http://localhost:3001/users/count', true);
-          xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.withCredentials = true;
+      // Fetch all users and count them directly instead of using the count endpoint
+      const getUserCount = async () => {
+        try {
+          // Fetch all users instead of just the count
+          const response = await fetch('http://localhost:3001/users', {
+            method: 'GET',
+            headers,
+            credentials: 'include'
+          });
           
-          xhr.onload = function() {
-            console.log('User count XHR status:', xhr.status);
-            console.log('User count XHR response:', xhr.responseText);
-            
-            if (xhr.status >= 200 && xhr.status < 300) {
-              try {
-                const data = JSON.parse(xhr.responseText);
-                console.log('Parsed user count data:', data);
-                if (data && typeof data.count === 'number') {
-                  resolve(data.count);
-                } else {
-                  console.error('Invalid user count format:', data);
-                  resolve(0);
-                }
-              } catch (e) {
-                console.error('Error parsing user count response:', e);
-                resolve(0);
-              }
-            } else {
-              console.error('Error fetching user count:', xhr.status, xhr.responseText);
-              resolve(0);
-            }
-          };
-          
-          xhr.onerror = function() {
-            console.error('XHR error for user count');
-            resolve(0);
-          };
-          
-          xhr.send();
-        });
+          if (response.ok) {
+            const users = await response.json();
+            console.log('Fetched users data:', users);
+            // Return the length of the users array
+            return Array.isArray(users) ? users.length : 0;
+          } else {
+            console.error('Error fetching users:', response.status);
+            return 0;
+          }
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          return 0;
+        }
       };
 
       // Fetch meals count using fetch API
@@ -184,15 +167,16 @@ const Admin = () => {
   }, [isAdmin, logout, navigate]);
 
   return (
-    <div className="desktop-container admin-container">
+    <div className="admin-container">
       <AdminNavbar />
       <div className="admin-header">
-        <div>
+        <div className="admin-badge">מנהל מערכת</div>
+        <div className="admin-greeting">
           <h1>שלום {user.first_name} 👋</h1>
           <p>כאן תוכל/י לנהל את האתר בקלות</p>
           {lastLogin && <p className="last-login">כניסה אחרונה: {lastLogin}</p>}
         </div>
-        <div className="admin-badge">מנהל מערכת</div>
+        <div style={{ width: "100px" }}></div> {/* Placeholder for balance */}
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -203,7 +187,7 @@ const Admin = () => {
         ) : (
           <>
             <div className="card">
-              <h3>🧑‍♂️ משתמשים רשומים</h3>
+              <h3>🧑‍♂️ משתמשים </h3>
               <p className="stat-number">{stats.users}</p>
               <Link to="/admin/users" className="stat-action desktop-btn desktop-btn-primary">
                 ניהול משתמשים
@@ -221,36 +205,15 @@ const Admin = () => {
               <p className="stat-number">{stats.orders}</p>
               <Link to="/admin/orders" className="stat-action desktop-btn desktop-btn-primary">צפייה בהזמנות</Link>
             </div>
+            <div className="card">
+              <h3>📬 צור קשר</h3>
+              <p className="stat-number">הודעות</p>
+              <Link to="/admin/messages" className="stat-action desktop-btn desktop-btn-primary">
+                צפייה בהודעות
+              </Link>
+            </div>
           </>
         )}
-      </div>
-
-      <div className="admin-sections">
-        <div className="admin-section">
-          <h2>🍽️ ניהול מנות</h2>
-          <div className="admin-actions">
-            <Link to="/admin/meals" className="admin-link desktop-btn">
-              <span className="icon">🖼️</span>
-              ניהול מנות
-            </Link>
-            <Link to="/admin/add-meal" className="admin-link desktop-btn">
-              <span className="icon">➕</span>
-              הוספת מנה חדשה
-            </Link>
-          </div>
-        </div>
-
-       
-
-        <div className="admin-section">
-          <h2>📬 ניהול הודעות צור קשר</h2>
-          <div className="admin-actions">
-            <Link to="/admin/messages" className="admin-link desktop-btn">
-              <span className="icon">📥</span>
-              צפייה בהודעות שהתקבלו
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

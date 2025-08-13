@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import AdminNavbar from "../components/AdminNavbar";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -424,6 +424,13 @@ const AdminUsers = () => {
             </table>
           </div>
         )}
+
+        <div className="back-to-admin-container">
+          <Link to="/admin" className="back-to-admin-button">
+            <span className="back-icon">←</span>
+            חזרה לדף ניהול
+          </Link>
+        </div>
       </main>
 
       <footer className="admin-footer">

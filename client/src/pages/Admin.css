@@ -70,12 +70,11 @@ body {
 }
 
 .admin-container {
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   background-color: white;
-  border-radius: 0 0 20px 20px;
   padding: 2rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   text-align: center;
 }
 
@@ -84,7 +83,12 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  text-align: right;
+  text-align: center;
+}
+
+.admin-greeting {
+  flex: 1;
+  text-align: center;
 }
 
 .admin-badge {

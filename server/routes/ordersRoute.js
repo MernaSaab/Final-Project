@@ -131,37 +131,93 @@ router.post('/', (req, res) => {
   const orderDate = new Date().toISOString().split('T')[0];
   const status = 'pending';
 
-  const sqlOrder = `
-    INSERT INTO orders (order_date, status, first_name, last_name, phone, email, id_number, address)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `;
-
-  db.query(sqlOrder, [orderDate, status, firstName, lastName, phone, email, idNumber, address], (err, result) => {
+  // Start a database transaction to ensure data consistency
+  db.beginTransaction(err => {
     if (err) {
-      console.error('Error inserting order:', err);
-      return res.status(500).json({ error: 'Error creating order' });
+      console.error('Error starting transaction:', err);
+      return res.status(500).json({ error: 'Error starting transaction' });
     }
 
-    const orderId = result.insertId;
-
-    const sqlOrderMeal = `
-      INSERT INTO order_meal (order_id, meal_id, quantity)
-      VALUES ?
+    const sqlOrder = `
+      INSERT INTO orders (order_date, status, first_name, last_name, phone, email, id_number, address)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    const orderMeals = cartItems.map(item => [
-      orderId,
-      item.mealId || item.id || item.meal_id,
-      item.quantity || item.qty
-    ]);
-
-    db.query(sqlOrderMeal, [orderMeals], (err2) => {
-      if (err2) {
-        console.error('Error inserting order items:', err2);
-        return res.status(500).json({ error: 'Error creating order items' });
+    db.query(sqlOrder, [orderDate, status, firstName, lastName, phone, email, idNumber, address], (err, result) => {
+      if (err) {
+        console.error('Error inserting order:', err);
+        return db.rollback(() => {
+          res.status(500).json({ error: 'Error creating order' });
+        });
       }
 
-      res.status(201).json({ message: 'Order created successfully' });
+      const orderId = result.insertId;
+      const orderMeals = cartItems.map(item => [
+        orderId,
+        item.mealId || item.id || item.meal_id,
+        item.quantity || item.qty
+      ]);
+
+      // Insert order items
+      const sqlOrderMeal = `
+        INSERT INTO order_meal (order_id, meal_id, quantity)
+        VALUES ?
+      `;
+
+      db.query(sqlOrderMeal, [orderMeals], (err2) => {
+        if (err2) {
+          console.error('Error inserting order items:', err2);
+          return db.rollback(() => {
+            res.status(500).json({ error: 'Error creating order items' });
+          });
+        }
+
+        // Update meal quantities for each ordered item
+        const updatePromises = cartItems.map(item => {
+          return new Promise((resolve, reject) => {
+            const mealId = item.mealId || item.id || item.meal_id;
+            const quantity = item.quantity || item.qty;
+            
+            const updateQuery = `
+              UPDATE meals 
+              SET quantity = GREATEST(0, quantity - ?) 
+              WHERE meal_id = ?
+            `;
+            
+            db.query(updateQuery, [quantity, mealId], (updateErr) => {
+              if (updateErr) {
+                console.error(`Error updating quantity for meal ${mealId}:`, updateErr);
+                reject(updateErr);
+              } else {
+                console.log(`Updated quantity for meal ${mealId}, decreased by ${quantity}`);
+                resolve();
+              }
+            });
+          });
+        });
+
+        // Wait for all quantity updates to complete
+        Promise.all(updatePromises)
+          .then(() => {
+            // Commit the transaction if all operations succeeded
+            db.commit(commitErr => {
+              if (commitErr) {
+                console.error('Error committing transaction:', commitErr);
+                return db.rollback(() => {
+                  res.status(500).json({ error: 'Error finalizing order' });
+                });
+              }
+              res.status(201).json({ message: 'Order created successfully' });
+            });
+          })
+          .catch(updateErr => {
+            // Rollback the transaction if any quantity update failed
+            console.error('Error updating meal quantities:', updateErr);
+            db.rollback(() => {
+              res.status(500).json({ error: 'Error updating meal quantities' });
+            });
+          });
+      });
     });
   });
 });
@@ -190,19 +246,82 @@ router.post("/full", (req, res) => {
   }
 
   const order_date = new Date().toISOString().split("T")[0];
-  const insertOrderQuery = "INSERT INTO orders (order_date, status, user_id) VALUES (?, ?, ?)";
+  
+  // Start a database transaction to ensure data consistency
+  db.beginTransaction(err => {
+    if (err) {
+      console.error('Error starting transaction:', err);
+      return res.status(500).json({ error: 'Error starting transaction' });
+    }
+    
+    const insertOrderQuery = "INSERT INTO orders (order_date, status, user_id) VALUES (?, ?, ?)";
 
-  db.query(insertOrderQuery, [order_date, status, user_id], (err, result) => {
-    if (err) return res.status(500).json({ message: "Error creating order", error: err });
+    db.query(insertOrderQuery, [order_date, status, user_id], (err, result) => {
+      if (err) {
+        console.error('Error creating order:', err);
+        return db.rollback(() => {
+          res.status(500).json({ message: "Error creating order", error: err });
+        });
+      }
 
-    const orderId = result.insertId;
-    const insertItemsQuery = "INSERT INTO order_meal (order_id, meal_id, quantity) VALUES ?";
-    const values = items.map(item => [orderId, item.meal_id, item.quantity]);
+      const orderId = result.insertId;
+      const insertItemsQuery = "INSERT INTO order_meal (order_id, meal_id, quantity) VALUES ?";
+      const values = items.map(item => [orderId, item.meal_id, item.quantity]);
 
-    db.query(insertItemsQuery, [values], (err2) => {
-      if (err2) return res.status(500).json({ message: "Error adding items", error: err2 });
+      db.query(insertItemsQuery, [values], (err2) => {
+        if (err2) {
+          console.error('Error adding order items:', err2);
+          return db.rollback(() => {
+            res.status(500).json({ message: "Error adding items", error: err2 });
+          });
+        }
+        
+        // Update meal quantities for each ordered item
+        const updatePromises = items.map(item => {
+          return new Promise((resolve, reject) => {
+            const mealId = item.meal_id;
+            const quantity = item.quantity;
+            
+            const updateQuery = `
+              UPDATE meals 
+              SET quantity = GREATEST(0, quantity - ?) 
+              WHERE meal_id = ?
+            `;
+            
+            db.query(updateQuery, [quantity, mealId], (updateErr) => {
+              if (updateErr) {
+                console.error(`Error updating quantity for meal ${mealId}:`, updateErr);
+                reject(updateErr);
+              } else {
+                console.log(`Updated quantity for meal ${mealId}, decreased by ${quantity}`);
+                resolve();
+              }
+            });
+          });
+        });
 
-      res.json({ message: "Order created successfully", orderId });
+        // Wait for all quantity updates to complete
+        Promise.all(updatePromises)
+          .then(() => {
+            // Commit the transaction if all operations succeeded
+            db.commit(commitErr => {
+              if (commitErr) {
+                console.error('Error committing transaction:', commitErr);
+                return db.rollback(() => {
+                  res.status(500).json({ error: 'Error finalizing order' });
+                });
+              }
+              res.json({ message: "Order created successfully", orderId });
+            });
+          })
+          .catch(updateErr => {
+            // Rollback the transaction if any quantity update failed
+            console.error('Error updating meal quantities:', updateErr);
+            db.rollback(() => {
+              res.status(500).json({ error: 'Error updating meal quantities' });
+            });
+          });
+      });
     });
   });
 });

@@ -59,7 +59,15 @@ export const mealApi = {
   // Get all meals
   getAllMeals: () => apiRequest("/meals"),
     // Create full order (meals array + user_id + status)
-  createFullOrder: (data) => apiRequest("/order_meal/full", "POST", data),
+  createFullOrder: async (data) => {
+    // First create the order
+    const orderResult = await apiRequest("/order_meal/full", "POST", data);
+    
+    // Then force refresh all meals to update quantities
+    await apiRequest("/meals/refresh-quantities", "POST", { items: data.items });
+    
+    return orderResult;
+  },
 
 
   // Get meal by ID

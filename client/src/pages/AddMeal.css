@@ -9,14 +9,51 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffe9d3;
+  background-color: white;
   color: rgb(15, 12, 12);
 }
 
-header {
+.header-with-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #45a049;
+  transform: translateX(-3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.back-icon {
+  font-size: 1.2rem;
+}
+
+.admin-header {
   background-color: darkseagreen;
-  padding: 20px;
+  padding: 8px;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 header h1 {

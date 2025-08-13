@@ -1,23 +1,82 @@
-.admin-messages-container {
-  padding: 30px;
-  background-color: #f9f9f9;
+.admin-content {
+  padding: 1rem;
   direction: rtl;
   text-align: right;
 }
 
-table {
+.admin-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-button {
+  background-color: #4b2e1a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #6b4e3a;
+}
+
+.messages-table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.messages-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  direction: rtl;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-th,
-td {
-  padding: 12px;
-  border: 1px solid #ddd;
+.messages-table th,
+.messages-table td {
+  border: 1px solid #e0d4c2;
+  padding: 10px 12px;
+  text-align: center;
 }
 
-th {
-  background-color: #efefef;
+.messages-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.messages-table th {
+  background: linear-gradient(90deg, #f7e0c5, #f0f0f0);
+  color: #4b2e1a;
+  font-weight: bold;
+}
+
+.message-content {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #c62828;
+  text-align: center;
 }
